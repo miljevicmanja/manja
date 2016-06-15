@@ -1,0 +1,6 @@
+private void pokreniServer() {
+       PokretanjeServera ps=new PokretanjeServera();
+       ps.run();
+    }
+    
+    Ovu metodu pozivamo u konstruktoru posle initComponents().
