@@ -1,0 +1,67 @@
+public class NitKlijent extends Thread{
+    
+    Socket soket;
+
+
+    public NitKlijent(Socket soket) {
+        this.soket = soket;
+    }
+    
+    
+    
+    public void posalji(ServerTransferObjekat sto){
+        try {
+            ObjectOutputStream oos=new ObjectOutputStream(soket.getOutputStream());
+            oos.writeObject(sto);
+        } catch (IOException ex) {
+            Logger.getLogger(NitKlijent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    public KlijentTransferObjekat primiZahtev(){
+    KlijentTransferObjekat kto=new KlijentTransferObjekat();
+        try {
+            ObjectInputStream ois=new ObjectInputStream(soket.getInputStream());
+           kto= (KlijentTransferObjekat) ois.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(NitKlijent.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(NitKlijent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return kto;
+    }
+
+    @Override
+    public void run() {
+        KlijentTransferObjekat kto=primiZahtev();
+        ServerTransferObjekat sto=new ServerTransferObjekat();
+        switch(kto.getOperacija()){
+            case konstante.Konstante.VRATI_VRSTE_KURSEVA:
+                List<VrstaKursa> listaVrsteKurseva=Kontroler.getInstance().vratiSveVrsteKurseva();
+                sto.setOdgovor(listaVrsteKurseva);
+                break;
+        }
+        posalji(sto);
+    }
+    
+    ===================================================================================================
+    
+    public class PokretanjeServera extends Thread{
+
+    @Override
+    public void run() {
+        try {
+            ServerSocket ss=new ServerSocket(9000);
+            System.out.println("Server je pokrenut");
+            while(true){
+                Socket s=ss.accept();
+                System.out.println("Klijent je povezan");
+                NitKlijent nk=new NitKlijent(s);
+                nk.start();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(PokretanjeServera.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
