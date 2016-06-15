@@ -1,0 +1,55 @@
+public class KlijentTransferObjekat implements Serializable{
+    private int operacija;
+    private Object parametar;
+
+    public KlijentTransferObjekat() {
+    }
+
+    public KlijentTransferObjekat(int operacija, Object parametar) {
+        this.operacija = operacija;
+        this.parametar = parametar;
+    }
+
+    public int getOperacija() {
+        return operacija;
+    }
+
+    public void setOperacija(int operacija) {
+        this.operacija = operacija;
+    }
+
+    public Object getParametar() {
+        return parametar;
+    }
+
+    public void setParametar(Object parametar) {
+        this.parametar = parametar;
+    }
+    ============================================================================
+    public class ServerTransferObjekat implements Serializable{
+    private String poruka;
+    private Object odgovor;
+
+    public ServerTransferObjekat() {
+    }
+
+    public ServerTransferObjekat(String poruka, Object odgovor) {
+        this.poruka = poruka;
+        this.odgovor = odgovor;
+    }
+
+    public Object getOdgovor() {
+        return odgovor;
+    }
+
+    public void setOdgovor(Object odgovor) {
+        this.odgovor = odgovor;
+    }
+
+    public String getPoruka() {
+        return poruka;
+    }
+
+    public void setPoruka(String poruka) {
+        this.poruka = poruka;
+    }
