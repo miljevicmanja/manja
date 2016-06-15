@@ -1,0 +1,43 @@
+public class Komunikacija {
+    Socket s;
+    private static Komunikacija instance;
+    
+    public Komunikacija() {
+        try {
+            s=new Socket("localhost", 9000);
+        } catch (IOException ex) {
+            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static Komunikacija getInstance(){
+    if(instance==null) {
+        instance=new Komunikacija();
+    }
+    return instance;
+    }
+
+    
+    
+    public void posaljiZahtev(KlijentTransferObjekat kto){
+        try {
+            ObjectOutputStream oos=new ObjectOutputStream(s.getOutputStream());
+            oos.writeObject(kto);
+        } catch (IOException ex) {
+            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ServerTransferObjekat primiPoruku(){
+    ServerTransferObjekat sto=new ServerTransferObjekat();
+        try {
+            ObjectInputStream ois=new ObjectInputStream(s.getInputStream());
+           sto= (ServerTransferObjekat) ois.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Komunikacija.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sto;
+    
+    }
