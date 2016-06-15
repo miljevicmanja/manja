@@ -1,0 +1,19 @@
+ ---Konvertovanje Stringa u Date---
+ 
+ Date datumOd,datumDo;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        datumDo = sdf.parse(jtxtDatumDo.getText());
+            datumOd = sdf.parse(jtxtDatumOD.getText());
+  
+  ---Kombo u tabeli---
+  
+  TableColumnModel tcm = tabelaPrikazPolaznika.getColumnModel();
+        TableColumn kolona = tcm.getColumn(1);
+        kolona.setCellEditor(new DefaultCellEditor(kombo));
+        
+--- Format datuma---
+
+SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
+       sdf.format(pk.getDatumPrijave());
+       
+       
