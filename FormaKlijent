@@ -1,0 +1,10 @@
+ private void ucitajVrsteKurseva() {
+        KlijentTransferObjekat kto=new KlijentTransferObjekat();
+        kto.setOperacija(konstante.Konstante.VRATI_VRSTE_KURSEVA);
+        komunikacija.Komunikacija.getInstance().posaljiZahtev(kto);
+        ServerTransferObjekat sto=komunikacija.Komunikacija.getInstance().primiPoruku();
+        
+        List<VrstaKursa> listaVrsteKursa=(List<VrstaKursa>) sto.getOdgovor();
+        for (VrstaKursa vk : listaVrsteKursa) {
+            vrstaKursaCmb.addItem(vk);
+        }
