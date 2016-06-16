@@ -16,4 +16,10 @@
 SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
        sdf.format(pk.getDatumPrijave());
        
+ ---- POvezivanje sa bazom----
+ 
+ Class.forName("com.mysql.jdbc.Driver");‚
+ String url="jdbc:mysql://hostname:port/dbname";
+ conn = DriverManager.getConnection("jdbc:mysql://hostname:port/dbname","username", "password");
+       
        
